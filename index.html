@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>【Gemini API教程】如何申请调用Gemini API及获取API Key秘钥 | Google Gemini API接口使用指南</title>
+    <meta name="description" content="2025年最新Gemini API申请教程，详解Google Gemini API Key获取方法，Gemini API接口调用指南。提供Gemini 2.5 Pro/Flash/Ultra API等免费API接口。支持Gemini API国内直连，低成本稳定快速，API Key一键获取，注册即送免费额度！">
+    <meta name="keywords" content="Gemini API,Google API,Gemini API key,如何申请Gemini API,Gemini API接口,Gemini API调用,Gemini 2.5 Pro API,Gemini Ultra API,Gemini Flash API,Google API key,AI API中转站,Gemini API教程">
+    <meta property="og:title" content="【2025年详细教程】如何申请调用Gemini API及获取API Key秘钥 | Google Gemini API使用完全指南">
+    <meta property="og:description" content="详细图文教程：如何申请调用Gemini API及获取Google API Key。提供Gemini 2.5接口使用指南，包含Python代码示例，国内直连稳定快速，注册即送免费额度！">
+    <meta property="og:url" content="https://poloai.top/">
+    <meta property="twitter:title" content="【2025年详细教程】如何申请调用Gemini API及获取API Key秘钥 | Google Gemini API使用完全指南">
+    <meta property="twitter:description" content="详细图文教程：如何申请调用Gemini API及获取Google API Key。提供Gemini 2.5接口使用指南，包含Python代码示例，国内直连稳定快速，注册即送免费额度！">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charSet="utf-8" />
+    <meta http-equiv='content-language' content='zh-CN'>
+    <!-- <link rel="icon" href="/google.png" type="image/x-icon"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msvalidate.01" content="36CC1147BAC558447DA0D92095C7B6FA" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content {
+            text-align: center;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(45deg, var(--color-1), var(--color-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            line-height: 2.5;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgb(107, 107, 63), yellow);
+            z-index: -1;
+            opacity: 0.8;
+        }
+        .arrow-down {
+            position: absolute;
+            bottom: 20px;
+            cursor: pointer;
+            font-size: 32px;
+            color: #007bff;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* New Section Styles */
+        .markdown-content {
+            padding: 40px;
+            background-color: #1E88E5;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .markdown-content h2 {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+        .markdown-content p, .markdown-content li {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .markdown-content th, .markdown-content td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: left;
+        }
+        .markdown-content th {
+            background-color: #333;
+        }
+
+        /* POLOAPI中转站 Highlight Style */
+        .maxfly-highlight {
+            font-weight: bold;
+            background-color: rgba(255, 215, 0, 0.4);
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            padding: 0 5px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            display: inline-block;
+            transform: scale(1.05);
+        }
+        
+        /* Link styling for maxfly-highlight */
+        a.maxfly-highlight {
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        a.maxfly-highlight:hover {
+            background-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* Section Styles */
+        .section-container {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-1 {
+            background-color: #1976D2;
+        }
+        
+        .section-2 {
+            background-color: #2196F3;
+        }
+        
+        .section-3 {
+            background-color: #0D47A1;
+        }
+        
+        .section-4 {
+            background-color: #42A5F5;
+        }
+        
+        .section-5 {
+            background-color: #0D47A1;
+        }
+        
+        .section-6 {
+            background-color: #1565C0;
+        }
+
+        /* Mobile Styles */
+        @media screen and (max-width: 767px) {
+            .container {
+                min-height: auto;
+                padding-top: 150px;
+                padding-bottom: 20px;
+            }
+            h1 {
+                font-size: 36px;
+            }
+            p {
+                font-size: 18px;
+            }
+            .button {
+                font-size: 20px;
+                padding: 10px 20px;
+            }
+            .markdown-content {
+                padding: 20px;
+            }
+            .markdown-content h2 {
+                font-size: 28px;
+            }
+            .markdown-content p, .markdown-content li {
+                font-size: 16px;
+            }
+            .markdown-content table {
+                display: block;
+                overflow-x: auto;
+                width: 100%;
+            }
+            .markdown-content th, .markdown-content td {
+                white-space: nowrap;
+            }
+            .arrow-down {
+                display: none;
+            }
+            .section-container {
+                padding: 15px;
+                margin: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="content">
+            <h1>如何申请调用Gemini API及获取API Key秘钥</h1>
+            <h2>2025年最新Gemini API申请教程与Google API Key获取方法</h2>
+            <h2>🔥 Gemini 2.5 Pro/Flash/Ultra | ⚡ 国内直连 | 💯 API Key一键获取</h2>
+            <a href="https://poloai.top/" target="_self" class="button">免费注册领取Gemini API额度</a>
+            <h3>实时更新：<strong id="curdate"></strong></h3>
+        </div>
+        <div class="arrow-down" onclick="scrollToContent()">⬇️ 查看详细Gemini API教程</div>
+    </div>
+
+    <!-- Second Screen Content -->
+    <section class="markdown-content" id="more-content">
+
+        <blockquote>
+        <p>【2025最新】<strong>Gemini API申请与调用完全指南</strong> — 包含详细的<strong>Google API Key获取方法</strong>，让AI开发无障碍！</p>
+    </blockquote>
+    <p><a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站</a>提供<strong>Gemini API一站式解决方案</strong>，解决国内开发者Google API Key申请与接口调用难题。</p>
+    <p>无需科学上网，即可稳定使用<strong>Google Gemini API</strong>服务！本教程详细讲解如何获取和调用Gemini API！</p>
+
+    <div class="section-container section-1">
+        <h2>Gemini API申请：为什么选择POLOAPI中转站？</h2>
+        <p><strong><a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站</a></strong>是专为中国开发者和企业打造的Gemini API服务平台，提供比官方渠道更便捷、更稳定的API Key获取体验。</p>
+        <p>使用我们的<strong>Gemini API中转服务</strong>的五大核心优势：</p>
+        <ul>
+            <li>✅ <strong>免科学上网获取Gemini API Key</strong>：直接注册即可获得Google API密钥，无需复杂流程</li>
+            <li>✅ <strong>Gemini API Key即时生效</strong>：获取API Key后即可调用，无需等待审核，节省宝贵开发时间</li>
+            <li>✅ <strong>支持所有Gemini模型</strong>：覆盖Gemini 2.5 Pro、Gemini 2.5 Flash、Gemini Ultra等全系列模型</li>
+            <li>✅ <strong>Gemini API调用成本更低</strong>：比Google官方低20-40%的价格，按量计费更经济</li>
+            <li>✅ <strong>中文技术支持</strong>：提供详细的Gemini API调用教程和中文技术支持</li>
+        </ul>
+    </div>
+
+    <div class="section-container section-2">
+        <h2>【2025年】Gemini API模型与接口全览</h2>
+        <p>我们为您提供完整的<strong>Gemini API接口</strong>服务，覆盖Google全系列模型：</p>
+        <ul>
+            <li><a href="https://poloai.top/" target="_blank"><strong>Gemini 2.5 Pro API</strong></a> - 2025年最新多模态模型，支持百万级token上下文窗口，理解能力和创造力卓越。<span style="color:#ff4d4d;">热度：★★★★★</span></li>
+           <li><a href="https://poloai.top/" target="_blank"><strong>Gemini 2.5 Flash API</strong></a> - 轻量高速版本，响应速度更快，适合实时应用场景，性价比极高。<span style="color:#ff4d4d;">热度：★★★★☆</span></li>
+           <li><a href="https://poloai.top/" target="_blank"><strong>Gemini Ultra API</strong></a> - Google最强大的AI模型，在复杂推理和专业领域表现卓越。<span style="color:#ff4d4d;">热度：★★★★★</span></li>
+           <li><a href="https://poloai.top/" target="_blank"><strong>Gemini Vision API</strong></a> - 专注于图像理解和分析的API接口，支持高级视觉任务。<span style="color:#ff4d4d;">热度：★★★★☆</span></li>
+        </ul>
+        <p><strong>Gemini API功能亮点：</strong></p>
+        <ul>
+            <li>✓ <strong>百万级Token上下文</strong> - Gemini 2.5 Pro支持高达100万tokens上下文，可处理超长文档</li>
+            <li>✓ <strong>多模态理解</strong> - 原生支持文本、图像、音频和视频输入，实现跨模态理解</li>
+            <li>✓ <strong>Function Calling</strong> - 支持函数调用功能，实现结构化输出和工具使用</li>
+            <li>✓ <strong>代码能力</strong> - 在代码生成、调试和解释方面表现出色</li>
+            <li>✓ <strong>系统提示</strong> - 通过system参数精确控制模型行为和输出</li>
+        </ul>
+    </div>
+
+    <div class="section-container section-3">
+        <h2>Gemini API官方申请 VS POLOAPI中转站：全方位对比</h2>
+        <table border="1">
+            <tr>
+                <th>对比项</th>
+                <th>Google官方Gemini API</th>
+                <th><a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站</a> Gemini API</th>
+            </tr>
+            <tr>
+                <td><strong>API Key获取难度</strong></td>
+                <td>需要Google账号，部分地区受限</td>
+                <td>✅ 注册即获Gemini API Key，即时使用</td>
+            </tr>
+            <tr>
+                <td><strong>API接口访问</strong></td>
+                <td>需要科学上网工具</td>
+                <td>✅ 国内直接访问，无需任何工具</td>
+            </tr>
+            <tr>
+                <td><strong>接口延迟</strong></td>
+                <td>高延迟(200-500ms)</td>
+                <td>✅ 优化至50-100ms，响应更快</td>
+            </tr>
+            <tr>
+                <td><strong>区域限制</strong></td>
+                <td>部分地区无法访问</td>
+                <td>✅ 全球各地均可稳定访问</td>
+            </tr>
+            <tr>
+                <td><strong>计费货币</strong></td>
+                <td>美元结算，汇率波动</td>
+                <td>✅ 人民币付款，更方便透明</td>
+            </tr>
+            <tr>
+                <td><strong>API调用成本</strong></td>
+                <td>官方定价</td>
+                <td>✅ 比官方低20-40%</td>
+            </tr>
+            <tr>
+                <td><strong>接口文档</strong></td>
+                <td>英文文档，国内访问慢</td>
+                <td>✅ 全中文Gemini API文档，丰富示例代码</td>
+            </tr>
+            <tr>
+                <td><strong>技术支持</strong></td>
+                <td>英文邮件支持，时区差异</td>
+                <td>✅ 7×24中文技术支持，微信群沟通</td>
+            </tr>
+        </table>
+
+        <p><strong>专家建议：</strong>对于中国开发者和企业，通过<a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站</a>获取Gemini API Key并使用API服务，是更加便捷、经济的选择。</p>
+    </div>
+
+    <div class="section-container section-4">
+        <h2>【详细图文教程】如何获取并调用Gemini API？</h2>
+        <ol>
+            <li><strong>第一步：获取Gemini API Key</strong>
+                <ul>
+                    <li>访问<a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站官网</a>完成注册</li>
+                    <li>登录后进入"API密钥管理"页面</li>
+                    <li>点击"创建新密钥"按钮生成您的Gemini API Key</li>
+                    <li>系统将立即生成并显示您的API Key，请妥善保存</li>
+                </ul>
+            </li>
+            <li><strong>第二步：准备调用Gemini API</strong>
+                <ul>
+                    <li>选择所需的Gemini模型（如Gemini 2.5 Pro、Gemini 2.5 Flash等）</li>
+                    <li>查看对应模型的API文档和pricing（计费标准）</li>
+                    <li>确认账户余额充足（新用户注册即送免费额度）</li>
+                </ul>
+            </li>
+            <li><strong>第三步：编写代码调用Gemini API</strong>
+                <ul>
+                    <li>参考下方示例代码，替换API_KEY和模型参数</li>
+                    <li>根据业务需求修改请求参数和提示词</li>
+                    <li>运行代码，开始享受Gemini API服务</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>Gemini API调用示例代码（Python）</h2>
+        <pre><code>
+# Gemini API调用示例 - Python
+import requests
+import json
+
+# 您的API密钥
+API_KEY = "your_poloai_api_key"  
+# API接口地址
+API_URL = "https://poloai.top/v1/models/gemini-2.5-pro:generateContent"  
+
+headers = {
+    "Content-Type": "application/json",
+    "x-goog-api-key": API_KEY
+}
+
+# 请求参数
+data = {
+    "contents": [
+        {
+            "parts": [
+                {
+                    "text": "请介绍Gemini API的主要特点和使用场景"
+                }
+            ]
+        }
+    ],
+    "generationConfig": {
+        "temperature": 0.7,
+        "maxOutputTokens": 1000,
+        "topP": 0.8
+    }
+}
+
+# 发送请求
+response = requests.post(API_URL, headers=headers, json=data)
+print(json.dumps(response.json(), indent=4, ensure_ascii=False))
+        </code></pre>
+
+        <h2>其他编程语言的Gemini API调用示例</h2>
+        <pre><code>
+// Gemini API调用示例 - JavaScript (Node.js)
+const axios = require('axios');
+
+const API_KEY = 'your_poloai_api_key';
+const API_URL = 'https://poloai.top/v1/models/gemini-2.5-pro:generateContent';
+
+async function callGeminiAPI() {
+  try {
+    const response = await axios.post(
+      API_URL,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: "请介绍Gemini API的主要特点和使用场景"
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1000,
+          topP: 0.8
+        }
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': API_KEY
+        }
+      }
+    );
+    
+    console.log(JSON.stringify(response.data, null, 2));
+  } catch (error) {
+    console.error('调用Gemini API出错:', error.response?.data || error.message);
+  }
+}
+
+callGeminiAPI();
+        </code></pre>
+    </div>
+
+    <div class="section-container section-5">
+        <h2>Gemini API常见问题解答</h2>
+        <h3>1. Gemini API Key申请需要多久？有什么要求？</h3>
+        <p>通过<a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站</a>申请Gemini API Key只需几分钟，无需科学上网，无需绑定海外信用卡，注册账号后即可立即获取API密钥。而Google官方渠道在部分地区可能受限或需要信用卡验证。</p>
+
+        <h3>2. Gemini API计费方式是怎样的？</h3>
+        <p>Gemini API采用tokens计费模式，区分输入tokens和输出tokens，不同模型单价不同。POLOAPI中转站支持预充值和按量付费两种方式，比官方渠道更加经济实惠。新用户注册即享100元免费测试额度。</p>
+
+        <h3>3. Gemini 2.5 Pro与其他版本有什么区别？</h3>
+        <p>Gemini系列模型各有特点：</p>
+        <ul>
+            <li>Gemini 2.5 Pro：Google主力模型，支持100万tokens上下文，性能强大，适合大多数应用场景</li>
+            <li>Gemini 2.5 Flash：轻量快速版本，响应速度更快，价格更低，适合实时应用</li>
+            <li>Gemini Ultra：性能最高，适合需要最高精度和复杂推理的任务，价格较高</li>
+        </ul>
+
+        <h3>4. Gemini API支持哪些高级功能？</h3>
+        <p>通过POLOAPI中转站，您可以使用Gemini API的所有高级功能，包括：</p>
+        <ul>
+            <li><strong>Function Calling</strong>：定义函数并让Gemini调用，实现结构化输出</li>
+            <li><strong>多模态输入</strong>：支持文本、图像、音频和视频混合输入</li>
+            <li><strong>System Prompt</strong>：通过system参数设置模型行为</li>
+            <li><strong>Stream模式</strong>：流式输出，实现打字机效果</li>
+            <li><strong>超长上下文</strong>：Gemini 2.5 Pro支持高达100万tokens上下文窗口</li>
+            <li><strong>安全过滤</strong>：内置内容安全过滤，可通过参数调整过滤级别</li>
+        </ul>
+
+        <h3>5. Gemini API适合哪些应用场景？</h3>
+        <p>Gemini API非常适合以下应用场景：</p>
+        <ul>
+            <li>需要处理和分析大量长文本的应用</li>
+            <li>多模态应用，如图像理解、视频分析等</li>
+            <li>需要精确结构化输出的系统</li>
+            <li>代码开发助手和编程辅助工具</li>
+            <li>复杂的对话系统和智能客服</li>
+            <li>内容创作和文档处理应用</li>
+        </ul>
+    </div>
+
+    <div class="section-container section-6">
+        <h2>Gemini API使用最佳实践与技巧</h2>
+        <p>根据2025年最新开发者反馈，使用Gemini API的一些最佳实践包括：</p>
+        <ul>
+            <li><strong>利用百万级上下文窗口</strong>：Gemini 2.5 Pro的100万tokens上下文能力可用于处理整本书或大型代码库</li>
+            <li><strong>合理设置温度参数</strong>：对于事实性任务，设置低温度(0.1-0.3)；创意任务使用高温度(0.7-0.9)</li>
+            <li><strong>使用Function Calling</strong>：通过定义函数结构，让Gemini返回严格格式化的JSON数据</li>
+            <li><strong>混合使用多模态输入</strong>：结合文本和图像输入，提高理解准确性</li>
+            <li><strong>批处理请求</strong>：使用批量API调用减少请求次数，提高效率</li>
+            <li><strong>组合使用不同模型</strong>：根据任务复杂度选择不同的Gemini模型，优化成本和性能</li>
+        </ul>
+
+        <h2>Gemini 2.5 Pro与其他模型对比</h2>
+        <table border="1">
+            <tr>
+                <th>模型</th>
+                <th>优势</th>
+                <th>适用场景</th>
+            </tr>
+            <tr>
+                <td><strong>Gemini 2.5 Pro</strong></td>
+                <td>超长上下文，多模态能力强大</td>
+                <td>长文档处理，复杂推理，多模态应用</td>
+            </tr>
+            <tr>
+                <td>Gemini 2.5 Flash</td>
+                <td>速度快，成本低</td>
+                <td>实时应用，简单查询，高频调用场景</td>
+            </tr>
+            <tr>
+                <td>Gemini Ultra</td>
+                <td>最高精度，专业领域表现出色</td>
+                <td>科研，专业分析，高要求场景</td>
+            </tr>
+            <tr>
+                <td>GPT-4o</td>
+                <td>创造性内容生成</td>
+                <td>创意写作，内容创作</td>
+            </tr>
+        </table>
+
+        <h2>开始使用Gemini API，体验Google最强AI能力！</h2>
+        <p>访问<a href="https://poloai.top/" target="_blank" class="maxfly-highlight">POLOAPI中转站</a>，一键获取Gemini API Key，开启AI开发新时代！</p>
+        <p>如果本Gemini API申请指南对您有所帮助，欢迎收藏本页面并分享给更多开发者！一起探索Gemini API的无限可能！</p>
+    </div>
+
+
+    <hr>
+    </section>
+
+  <script>
+        const colors = [
+            ['#1976D2', '#42A5F5'], 
+            ['#0D47A1', '#2196F3'], 
+            ['#1565C0', '#64B5F6'], 
+            ['#0288D1', '#90CAF9'], 
+            ['#01579B', '#4FC3F7']  
+        ];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        const [color1, color2] = colors[randomIndex];
+        document.documentElement.style.setProperty('--color-1', color1);
+        document.documentElement.style.setProperty('--color-2', color2);
+
+        function scrollToContent() {
+            document.getElementById('more-content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}/${month}/${day}`;
+        }
+        
+        document.getElementById('curdate').textContent = formatDate(new Date());
+        
+    </script>
+</body>
+</html>
